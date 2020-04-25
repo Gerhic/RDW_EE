@@ -1,9 +1,23 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', (req, res, next) => {
+  const data = {
+    otherData: 'Something Else'
+  }
 
-module.exports = router;
+  req.vueOptions = {
+    head: {
+      title: 'Page Title',
+      metas: [
+        { property: 'og:title', content: 'Page Title' },
+        { name: 'twitter:title', content: 'Page Title' }
+      ]
+    }
+  }
+
+  res.renderVue('hello.vue', data, req.vueOptions)
+})
+
+module.exports = router
