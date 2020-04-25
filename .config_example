@@ -1,0 +1,16 @@
+dbUser=example
+dbPass=example
+
+//INFO: create ".config" with real values only
+/*
+mongodb+srv://rdwDbUser:rdwDbPass420@rdw-uhl2i.mongodb.net/test?retryWrites=true&w=majority
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://rdwDbUser:<password>@rdw-uhl2i.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+*/
