@@ -11,7 +11,7 @@ function getRegList(onSuccess) {
     const collection = client.db(dbName).collection(regListCollectionName);
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
-      console.log(`getRegList result: \n${result}`);
+      console.log(`getRegList result: \n${JSON.stringify(result)}`);
       onSuccess(result);
       client.close();
     });

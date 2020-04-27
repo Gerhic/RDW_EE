@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var db = require("../services/db");
 
-router.get("/", function (req, res, next) {
+router.get("/", (req, res, next) => {
   var cookie = req.cookies.test1;
   if (cookie === undefined) {
     onGetRegList(res);
@@ -38,6 +38,20 @@ function onGetRegList(res, hideSubmit) {
       hideSubmit: hideSubmit,
     });
   });
+}
+
+
+router.get("/admin", (req, res, next) => {
+  db.getRegList((result) => {
+    res.render("regListAdmin", {
+      data: result,
+      fun1: asd
+    });
+  });
+});
+
+function asd() {
+  console.log("TEST123123123123 123123");
 }
 
 module.exports = router;
