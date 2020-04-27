@@ -3,7 +3,12 @@ var router = express.Router();
 var db = require("../services/db");
 
 router.get("/", function (req, res, next) {
-  onGetRegList(res);
+  var cookie = req.cookies.test1;
+  if (cookie === undefined) {
+    onGetRegList(res);
+  } else {
+    onGetRegList(res, true);
+  }
 });
 
 router.post("/", (req, res, next) => {
@@ -12,6 +17,12 @@ router.post("/", (req, res, next) => {
 
   if (name) {
     db.insertNewName(name, () => {
+      res.cookie("test1", true, {
+        maxAge: 900000,
+        httpOnly: true,
+      });
+      console.log("cookie created successfully");
+
       onGetRegList(res, true);
     });
   } else {
@@ -22,6 +33,11 @@ router.post("/", (req, res, next) => {
 function onGetRegList(res, hideSubmit) {
   db.getRegList((result) => {
     res.render("regList", { data: JSON.stringify(result), hideSubmit: hideSubmit });
+    res.render("regList", {
+      data: result,
+      title: "3.04 MTG modern webcam tournament",
+      hideSubmit: hideSubmit,
+    });
   });
 }
 

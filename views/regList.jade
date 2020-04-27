@@ -1,9 +1,18 @@
 extends layout
 
 block content
-    h1= data
-    p Welcome to #{data}
+    h1= title
+    div
+        table.table.table-hover
+            thead
+                tr: th Registered people:
+            tbody
+                each entry in data
+                    tr
+                        td=entry.name
 
+    p
+    
     if hideSubmit
         p Thank you for registering
     else
@@ -13,5 +22,6 @@ block content
                     fieldset(data-role='controlgroup')
                         label(for='name') Name 
                             input(id='name' type='text' value='' placeholder='Type your name' name='name')
-                div(data-role='fieldcontain')   
+                div(data-role='fieldcontain')
+                    p
                     input(type='submit' value='Register' data-transition='fade' data-theme='c')
