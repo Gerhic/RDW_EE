@@ -32,7 +32,6 @@ router.post("/", (req, res, next) => {
 
 function onGetRegList(res, hideSubmit) {
   db.getRegList((result) => {
-    res.render("regList", { data: JSON.stringify(result), hideSubmit: hideSubmit });
     res.render("regList", {
       data: result,
       title: "3.04 MTG modern webcam tournament",
