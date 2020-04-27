@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+    div
+        form(action='/regList' method='post')
+            div(data-role='fieldcontain')
+                fieldset(data-role='controlgroup')
+                    label(for='name') Name 
+                        input(id='name' type='text' value='' placeholder='Type your name' name='name')
+            div(data-role='fieldcontain')   
+                input(type='submit' value='Register' data-transition='fade' data-theme='c')

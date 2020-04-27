@@ -8,7 +8,6 @@ function getRegList(onSuccess) {
   client.connect((err) => {
     if (err) throw err;
     const collection = client.db(dbName).collection(regListCollectionName);
-
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
       console.log(`getRegList result: \n${result}`);
@@ -18,4 +17,4 @@ function getRegList(onSuccess) {
   });
 }
 
-module.exports = getRegList;
+module.exports.getRegList = getRegList;
