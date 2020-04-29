@@ -24,7 +24,7 @@ function insertNewName(name, onSuccess) {
     if (err) throw err;
     const collection = client.db(dbName).collection(regListCollectionName);
     try {
-      collection.insertOne({name: name}, function (err, response) {
+      collection.insertOne({ name: name }, function (err, response) {
         if (err) {
           console.log("err2");
         } else {
@@ -44,5 +44,23 @@ function insertNewName(name, onSuccess) {
   });
 }
 
+function deleteParticipantById(id, onSuccess) {
+  const client = new MongoClient(uri, { useNewUrlParser: true });
+  client.connect((err) => {
+    if (err) throw err;
+    const collection = client.db(dbName).collection(regListCollectionName);
+    try {
+      collection.deleteOne({ "_id": id });
+      console.log("done");
+    } catch (err) {
+      console.log(`err: ${err}`);
+      throw err;
+    }
+  });
+  client.close();
+  onSuccess();
+}
+
 module.exports.getRegList = getRegList;
 module.exports.insertNewName = insertNewName;
+module.exports.deleteParticipantById = deleteParticipantById;

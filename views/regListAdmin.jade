@@ -1,7 +1,8 @@
 extends layout
 
+
 block content
-    h1= title
+    script(src="/javascripts/regListAdmin.js")
     div
         table.table.table-hover
             thead
@@ -11,13 +12,20 @@ block content
                     tr
                         td=entry.name 
                         td 
-                        button(type='submit' onclick='edit("#{entry._id}, #{entry.name}")') #{entry.name}
+                        button(id='myButton' onclick='removeParticipant("#{entry._id}", "#{entry.name}")') #{entry.name}
                         script.
-                            function edit(id, name) {
-                                var val = confirm ("Do you want to remove " + name + "?");
-                                if (val==true) {
-                                    fun1();
-                                    asd();
-                                    return true;
+                            function removeParticipant(id, name) {
+                                if (confirm(`Do you want to remove ${name}?`)) {
+                                    fetch(`/regList/deleteParticipant?id=${escape(id)}`, { method: 'POST' })
+                                        .then(function (response) {
+                                            if (response.ok) {
+                                                console.log('Click was recorded');
+                                            } else {
+                                                throw new Error('Request failed.');
+                                            }
+                                        })
+                                        .catch(function (error) {
+                                            console.log(error);
+                                        });
                                 }
                             };

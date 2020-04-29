@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var db = require("../services/db");
 
+// GET reglist
 router.get("/", (req, res, next) => {
   var cookie = req.cookies.test1;
   if (cookie === undefined) {
@@ -11,6 +12,7 @@ router.get("/", (req, res, next) => {
   }
 });
 
+// POST register for event
 router.post("/", (req, res, next) => {
   console.log(req.body);
   let name = req.body.name;
@@ -30,6 +32,25 @@ router.post("/", (req, res, next) => {
   }
 });
 
+// GET reglist admin page
+router.get("/admin", (req, res, next) => {
+  db.getRegList((result) => {
+    res.render("regListAdmin", {
+      data: result,
+    });
+  });
+});
+
+
+// POST delete participant
+router.post("/deleteParticipant", (req, res, next) => {
+  console.log(`${req.query.id}`);
+  db.deleteParticipantById(req.query.id, () => {
+    
+    res.send();
+  });
+});
+
 function onGetRegList(res, hideSubmit) {
   db.getRegList((result) => {
     res.render("regList", {
@@ -38,20 +59,6 @@ function onGetRegList(res, hideSubmit) {
       hideSubmit: hideSubmit,
     });
   });
-}
-
-
-router.get("/admin", (req, res, next) => {
-  db.getRegList((result) => {
-    res.render("regListAdmin", {
-      data: result,
-      fun1: asd
-    });
-  });
-});
-
-function asd() {
-  console.log("TEST123123123123 123123");
 }
 
 module.exports = router;
